@@ -3,9 +3,10 @@ package core.basesyntax;
 import java.util.Objects;
 
 public class MyHashMap<K, V> implements MyMap<K, V> {
-    private Node<K, V>[] table;
     private static final int DEFAULT_CAPACITY = 16;
     private static final float LOAD_FACTOR = 0.75f;
+    private static final int DEFAULT_MULTIPLIER = 2;
+    private Node<K, V>[] table;
     private int threshold = 12;
     private int size;
 
@@ -69,7 +70,7 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
             return;
         }
         Node<K, V>[] oldTable = table;
-        table = new Node[table.length * 2];
+        table = new Node[table.length * DEFAULT_MULTIPLIER];
         threshold = (int) (table.length * LOAD_FACTOR);
 
         for (Node<K, V> kvNode : oldTable) {
