@@ -3,11 +3,11 @@ package core.basesyntax;
 import java.util.Objects;
 
 public class MyHashMap<K, V> implements MyMap<K, V> {
+    private Node<K, V>[] table;
     private static final int DEFAULT_CAPACITY = 16;
     private static final float LOAD_FACTOR = 0.75f;
-    private Node<K, V>[] table;
     private int threshold = 12;
-    int size;
+    private int size;
 
     public MyHashMap() {
         table = new Node[DEFAULT_CAPACITY];
@@ -74,7 +74,8 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
 
         for (Node<K, V> kvNode : oldTable) {
             for (Node<K, V> currNode = kvNode; currNode != null; currNode = currNode.next) {
-                Node<K, V> copyOfNode = new Node<>(currNode.hashcode, currNode.key, currNode.value, null);
+                Node<K, V> copyOfNode =
+                        new Node<>(currNode.hashcode, currNode.key, currNode.value, null);
                 int position = currNode.hashcode % table.length;
 
                 if (table[position] == null) {
@@ -85,7 +86,6 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
             }
         }
     }
-
 
     private class Node<K, V> {
         private int hashcode;
